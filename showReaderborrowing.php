@@ -24,7 +24,7 @@ $dataset = $conn->query($sql);
 while($row = $dataset->fetch_assoc())
 {	
 	echo "<tr><td>borrow date </td><td><a href=borrowDetails.php?bid=" . $row["id"] . ">" . $row["borrowDate"] . "</a></td>";
-	echo "<td><a href=delete.php?id=" . $row["id"] . "&tableName=borrow> Delete </a> </td>";
+	echo "<td><a href=deleteBorrow.php?id=" . $row["id"] . "> Delete </a> </td>";
 	echo "</tr>";
 
 
