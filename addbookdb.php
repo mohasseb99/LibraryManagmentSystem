@@ -8,7 +8,7 @@ $categoryid = $_REQUEST["categoryId"];
 $quantity = $_REQUEST["quantity"];
 $fees = $_REQUEST["fees"];
 $description=$_REQUEST["descriptionbook"];
-$imagepath=$_REQUEST["filePath"];
+
 
 
 
@@ -23,15 +23,7 @@ else{
 	$conn->query($sql);
 }
 
-if($_REQUEST["bookId"] != ""){
-	$bookId = $_REQUEST["bookId"];
-	$sql = "UPDATE bookfile SET filePath = '$imagepath''  WHERE id = $bookId";
-	$conn->query($sql);
-}
-else{
-	$sql = "insert into bookfile (filePath) values ('$imagepath')";
-	$conn->query($sql);
-}
+
 
 
 
