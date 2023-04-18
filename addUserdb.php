@@ -22,7 +22,7 @@ $dateOfBirth = $_REQUEST["dateOfBirth"];
 $userTypeId = $_REQUEST["userTypeId"];
 $password = $_REQUEST["password"];
 $userName = $_REQUEST["userName"];
-
+$cityNum=$_REQUEST["cityid"];
 
 if($_REQUEST["userId"] != ""){
    
@@ -30,13 +30,13 @@ if($_REQUEST["userId"] != ""){
 	$userId = $_REQUEST["userId"];
 
    //make the query
-	$sql = "UPDATE user SET userName = '$userName', password = '$password', fullName = '$fullName', dateOfBirth = '$dateOfBirth', userTypeId = $userTypeId WHERE id = $userId";
+	$sql = "UPDATE user SET cityid='$cityNum', userName = '$userName', password = '$password', fullName = '$fullName', dateOfBirth = '$dateOfBirth', userTypeId = '$userTypeId' WHERE id = $userId";
    
    //execute the query
    $conn->query($sql); 
 }
 else{
-	$sql = "insert into user (fullName, dateOfBirth, userTypeId, password, userName) values ('$fullName', '$dateOfBirth', '$userTypeId', '$password', '$userName')";
+	$sql = "insert into user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) values ('$cityNum' ,'$fullName', '$dateOfBirth', '$userTypeId', '$password', '$userName')";
 	$conn->query($sql);
 }
 
