@@ -1,29 +1,32 @@
 <?php 
 
 include_once "db.php";
-$bookId = $_REQUEST["bookId"];
-$userId = $_REQUEST["userId"];
+session_start();
 
+$cart = $_SESSION['cart'];
+$userId = $_SESSION["id"];
 
-$sql= "SELECT * FROM books WHERE id = $bookId";
-$dataset = $conn->query($sql);
-$row = $dataset->fetch_assoc();
+//borrow table
+$borrowDate = date('Y-m-d');
+$sql = "insert into borrow (readerId, borrowDate) values ($userId, '$borrowDate')";
+$conn->query($sql);
+$borrowId = $conn->insert_id;
 
-if($row["available"] > 0){
-	//borrow table
-	$borrowDate = date('Y-m-d');
-	$sql = "insert into borrow (readerId, borrowDate) values ($userId, '$borrowDate')";
+foreach ($cart as $bookId){
+	$sql= "SELECT * FROM books WHERE id = $bookId";
+	$dataset = $conn->query($sql);
+	$row = $dataset->fetch_assoc();
 
-	$conn->query($sql);
-	$borrowId = $conn->insert_id;
+	if($row["available"] > 0){
+	
+		$sql = "insert into borrowdetails (borrowId, bookId) values ($borrowId, $bookId)";
+		$conn->query($sql);
 
-	$sql = "insert into borrowdetails (borrowId, bookId) values ($borrowId, $bookId)";
-	$conn->query($sql);
+		$ava = $row["available"] - 1;
+		$sql = "UPDATE books SET available = $ava WHERE id = $bookId";
+		$conn->query($sql);
+	}
+} 
 
-	$ava = $row["available"] - 1;
-	$sql = "UPDATE books SET available = $ava WHERE id = $bookId";
-	$conn->query($sql);
-}
-
-
+header("Location: clearCart.php");
 ?>

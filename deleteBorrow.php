@@ -17,7 +17,9 @@
 	$sql = "UPDATE books SET available = $ava WHERE id = $bookId";
 	$conn->query($sql);
 
-	echo "<a href=delete.php?id=" . $borrowId . "&tableName=borrow> click if you are sure </a>";
+	$sql = "DELETE FROM borrow WHERE id = $borrowId";
+	$conn->query($sql);
 
+	header('location:showReaderborrowing.php');
 
 ?>

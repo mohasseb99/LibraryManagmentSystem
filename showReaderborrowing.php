@@ -1,20 +1,26 @@
-<table border = 1>
+
+
+<?php
+include_once "header.php";
+?>
+
+
+<table border = 1 width = "100%">
 
 
 
 
 <?php
-include_once "db.php";
 
-$userId = $_REQUEST["userId"];
+$userId = $_SESSION["id"];
 
 $sql = "SELECT * from user where id = $userId";
 $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 ?>
 <tr>
-	<td> Reader Full Name </td> 
-	<td> <?php echo $userInfoobj["fullName"]; ?> </td>
+	<td width = "50%"> Reader Full Name </td> 
+	<td width = "50%"> <?php echo $userInfoobj["fullName"]; ?> </td>
 </tr>
 
 <?php
@@ -36,3 +42,9 @@ while($row = $dataset->fetch_assoc())
 ?>
 
 </table>
+
+
+
+<?php
+include_once "footer.php";
+?>
