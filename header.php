@@ -18,14 +18,46 @@
       </div>
       <div class="clr"></div>
       <div class="menu_nav">
-        <ul>
+      
             <?php 
                 include_once "db.php";
                 session_start();
+                function getSubmenusByUserType($parentId, $userTypeId, $conn) {
+                    $sql = "SELECT pages.* FROM pages
+                        INNER JOIN usertypepages ON pages.Id = usertypepages.pageid
+                        WHERE pages.parentId = $parentId AND usertypepages.usertypeid = $userTypeId order by orderby";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        if($parentId != 14){
+                            echo '<ul class="dropdown">';
+                        }
+                        else{echo '<ul>';}
+                        while ($row = $result->fetch_assoc()) {
+                            if($row["PhysicalAddress"] == "showstaticcontent.php"){
+                                ?>
+                                <li><a href="<?php echo $row['PhysicalAddress']."?pageid=".$row["Id"];?>"><?php echo $row["FriendlyName"];?></a>
+                                <?php
+                                getSubmenusByUserType($row['Id'], $userTypeId, $conn);
+                                echo '</li>';
+                            }
+                            else{
+                                ?>
+                                <li><a href="<?php echo $row['PhysicalAddress'];?>"><?php echo $row["FriendlyName"];?></a>
+                                <?php
+                                getSubmenusByUserType($row['Id'], $userTypeId, $conn);
+                                echo '</li>';
+                            }
+                        }
+                        echo '</ul>';
+                    }
+                }
                 $userTypeId = 4;
                 if(isset($_SESSION["userTypeId"])){
                     $userTypeId = $_SESSION["userTypeId"];
                 }
+                getSubmenusByUserType(14, $userTypeId, $conn);
+                /*
                 $sql = "select * from usertypepages where userTypeId = $userTypeId order by orderby";
                 $dataset = $conn->query($sql);
                 while($row = $dataset->fetch_assoc()){
@@ -45,10 +77,8 @@
                         <li><a href="<?php echo $row1['PhysicalAddress'];?>"><?php echo $row1["FriendlyName"];?></a></li>
                         <?php
                     }
-                }
+                }*/
             ?>
-
-          </ul>
       </div>
       <div class="searchform">
         <form id="formsearch" name="formsearch" method="post" action="#">

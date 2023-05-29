@@ -1,4 +1,19 @@
 @charset "utf-8";
+ul li ul.dropdown {
+	display: none;
+	position: relative;
+	z-index: 999;
+}
+
+ul li:hover ul.dropdown {
+	display: block; /* Display the dropdown */
+}
+
+ul li ul.dropdown li {
+	display: block;
+	background: #e3ddbb;
+}
+
 body {
 	margin:0;
 	padding:0;
