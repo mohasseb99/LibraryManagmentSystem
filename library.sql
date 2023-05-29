@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2023 at 08:40 PM
+-- Generation Time: May 29, 2023 at 03:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -171,24 +171,27 @@ CREATE TABLE `pages` (
   `Id` int(11) NOT NULL,
   `FriendlyName` varchar(222) NOT NULL,
   `PhysicalAddress` varchar(222) NOT NULL,
-  `static` int(11) NOT NULL
+  `static` int(11) NOT NULL,
+  `parentId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`Id`, `FriendlyName`, `PhysicalAddress`, `static`) VALUES
-(1, 'About Us', 'showstaticcontent.php', 1),
-(2, 'Add Book', 'addbook.php', 0),
-(3, 'Add User', 'addUser.php', 0),
-(4, 'Books', 'listAllBooks.php', 0),
-(5, 'Book Categories', 'listBookCategory.php', 0),
-(6, 'Login', 'login.php', 0),
-(7, 'Log out', 'logout.php', 0),
-(8, 'Show Borrows', 'showReaderborrowing.php', 0),
-(9, 'Reach Us', 'showstaticcontent.php', 1),
-(10, 'Cart', 'cart.php', 0);
+INSERT INTO `pages` (`Id`, `FriendlyName`, `PhysicalAddress`, `static`, `parentId`) VALUES
+(1, 'About Us', 'showstaticcontent.php', 1, 14),
+(2, 'Add Book', 'addbook.php', 0, 14),
+(3, 'Add User', 'addUser.php', 0, 6),
+(4, 'Books', 'listAllBooks.php', 0, 14),
+(5, 'Book Categories', 'listBookCategory.php', 0, 14),
+(6, 'Login ▾', 'login.php', 0, 14),
+(7, 'Log out', 'logout.php', 0, 14),
+(8, 'Show Borrows', 'showReaderborrowing.php', 0, 14),
+(9, 'Reach Us', 'showstaticcontent.php', 1, 14),
+(10, 'Cart', 'cart.php', 0, 14),
+(11, 'Profile', 'myprofile.php', 0, 14),
+(14, '\"\"', '\"\"', 0, 14);
 
 -- --------------------------------------------------------
 
@@ -294,7 +297,10 @@ INSERT INTO `usertypepages` (`Id`, `usertypeid`, `pageid`, `orderby`) VALUES
 (38, 4, 5, 2),
 (39, 4, 1, 3),
 (40, 4, 9, 4),
-(41, 1, 10, 8);
+(41, 1, 10, 8),
+(42, 1, 11, 0),
+(43, 2, 11, 0),
+(44, 3, 11, 0);
 
 --
 -- Indexes for dumped tables
@@ -346,7 +352,8 @@ ALTER TABLE `borrowdetails`
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `parentId` (`parentId`);
 
 --
 -- Indexes for table `staticcontent`
@@ -407,19 +414,19 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `borrow`
 --
 ALTER TABLE `borrow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `borrowdetails`
 --
 ALTER TABLE `borrowdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `staticcontent`
@@ -443,7 +450,7 @@ ALTER TABLE `usertype`
 -- AUTO_INCREMENT for table `usertypepages`
 --
 ALTER TABLE `usertypepages`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Constraints for dumped tables
@@ -479,6 +486,12 @@ ALTER TABLE `borrow`
 ALTER TABLE `borrowdetails`
   ADD CONSTRAINT `borrowdetails_ibfk_1` FOREIGN KEY (`borrowId`) REFERENCES `borrow` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `borrowdetails_ibfk_2` FOREIGN KEY (`bookId`) REFERENCES `books` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pages`
+--
+ALTER TABLE `pages`
+  ADD CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `pages` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `staticcontent`
