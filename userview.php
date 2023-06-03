@@ -1,25 +1,30 @@
 <?php
 include_once "db.php";
-
+include_once "users.php";
 class userview{
     function showuserInfo($objUser){
+
+        $userviewobj = new user($objUser);
+        $objUsername  = $userviewobj->getusername();
+        $objfullname  = $userviewobj->getfullName();
+        $dateofbirth  = $userviewobj->getdateofbirth();
         ?>
         <table border=2, cellpadding=7m cellspacing =9, width=800 >
             <tr>
-            <th width = 200>Name</th>
-            <td><?php echo $objUser->fullName; ?></td> 
+            <th width = 200>full Name</th>
+            <td><?php echo $objfullname; ?></td> 
             </tr> 
 
             <tr>
             <th >User Name</th>
-            <td><?php echo $objUser->userName; ?></td>
+            <td><?php echo $objUsername; ?></td>
             </tr> 
 
 
 
             <tr>
             <th >Date of Birth</th>
-            <td><?php echo $objUser->dateOfBirth; ?></td>
+            <td><?php echo $dateofbirth; ?></td>
             </tr> 
 
         </table>
