@@ -5,11 +5,11 @@ include_once "userType.php";
 include_once "users.php";
 class usertypeview{
 
-    static function  ShowUserType($objectType){
+    static function  ShowUserType($usertypenum){
 
-       return $objectType->name;
-
-        
+        $userTypeobj=new usertype($usertypenum);
+        $usertypename=$userTypeobj->getusertypename();
+        return $usertypename;
     }
 }
 /*$Id=$_REQUEST["Id"];
