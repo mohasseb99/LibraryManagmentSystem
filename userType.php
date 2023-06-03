@@ -19,7 +19,19 @@ class usertype{
 
         }
 
-    }    
+    }   
+    
+    public function getusertypeid(){
+        return isset($this->id) ? $this->id : null;
+    }
+
+    public function setusertypename($name){
+        $this->name=$name; 
+    }
+
+    public function getusertypename(){
+        return isset($this->name)? $this->name : null;
+    }
 
 }
 

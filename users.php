@@ -1,14 +1,22 @@
 <?php
 include_once "userType.php"; 
 include_once "helper.php"; 
-class user{
-    public $id;
-    public $fullName;
-    public $dateOfBirth;
-    public $userTypeId;
-    public $password;
-    public $userName;
-    public $cityid;
+include_once "db.php"; 
+class   user{
+    private $id;
+    private $fullName;
+    private $dateOfBirth;
+    private $userTypeId;
+    private $password;
+    private $userName;
+    private $cityid;
+
+    function insertNewRecord(){
+        $sql = "INSERT INTO user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) VALUES (this->cityNum ,this->fullName, this->dateOfBirth, this->userTypeId, this->password, this->userName)";
+        $conn=DB::getConnection();
+        $conn->query($sql);
+    
+    }
 
     function __construct($Id){
 
@@ -30,10 +38,61 @@ class user{
         }
     }
 
+    public function getId(){
+        return isset($this->id) ? $this->id : null;
+    }
+
+
+    public function setfullName($fullName){
+        $this->fullName=$fullName;
+    }
+    public function getfullName(){
+        return isset($this->fullName)? $this->fullName : null;
+    }
+
+
+    public function setdateofbirth($dateOfBirth){
+        $this->dateOfBirth=$dateOfBirth;
+    }
+    public function getdateofbirth($dateOfBirth){
+        return isset($this->dateOfBirth)? $this->dateOfBirth : null;
+    }
+
+
+    public function setuserTypeid($userTypeId){
+       $this->userTypeId= $userTypeId;
+    }
+    public function getuserTypeid(){
+        return isset($this->userTypeId)? $this->userTypeId : null;
+    } 
+
+
+    public function setpassword($password){
+       $this->password=$password;
+    }
+    public function getpassword(){
+        return isset($this->password)? $this->password : null;
+    }
+
+
+    public function setusername($userName){
+       $this->userName=$userName;
+    }
+    public function getusername(){
+        return isset($this->userName)? $this->userName : null;
+    }
+
+
+    public function setcityid($cityid){
+       $this->cityid=$cityid;
+    }
+    public function getcityid($cityid){
+        return isset($this->cityid)? $this->cityid : null;
+    }
 }
 
 /***************testing **************** */
-$obj=new user(23);
-echo $obj->fullName;
+//$obj=new user(23);
+//echo $obj->fullName;
 
 ?>
