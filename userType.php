@@ -2,8 +2,8 @@
 include_once "helper.php"; 
 
 class usertype{
-    public $id;
-    public $name;
+    private $id;
+    private $name;
     
     function __construct($Id){
 
