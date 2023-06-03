@@ -1,5 +1,6 @@
 <?php
 include_once "db.php";
+
 class userview{
     function showuserInfo($objUser){
         ?>
@@ -31,7 +32,20 @@ class userview{
 
             <tr>
             <th >Address</th>
-            <td></td>
+            <td><?php/* $sql= "SELECT * FROM user WHERE id = $objUser->id";
+
+                  $userInfoDS = $conn->query($sql);
+                  $userInfoobj = $userInfoDS->fetch_assoc();
+
+                   $cityIdVar=$userInfoobj["cityid"];
+
+                   while($cityIdVar != 0){
+                       $sql2="SELECT * FROM address WHERE Id=$cityIdVar";
+                       $addressdataset= $conn->query($sql2);
+                       $firstrow = $addressdataset->fetch_assoc();
+                        echo "$firstrow[name]  ";
+                       $cityIdVar=$firstrow["parentid"];
+                   }*/?> </td>
             </tr> 
 
 

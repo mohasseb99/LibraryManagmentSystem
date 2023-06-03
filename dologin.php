@@ -1,11 +1,17 @@
 <?php
 include_once "db.php";
+include_once "Encrypt.php";
+
 session_start();
 $userName = $_REQUEST["userName"];
 $password = $_REQUEST["password"];
 
+$enc=Encrypt::Encrypt($password,5);
+//echo $enc;
+$passwordDec=Encrypt::Decrypt($enc,5);
+//echo $dec;
 
-$sql= "SELECT * FROM user WHERE userName = '$userName' and password = '$password'";
+$sql= "SELECT * FROM user WHERE userName = '$userName' and password = '$passwordDec'";
 $dataset = $conn->query($sql);
 
 if($row = $dataset->fetch_assoc()){
