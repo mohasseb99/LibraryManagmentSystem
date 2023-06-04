@@ -9,49 +9,58 @@ include_once "header.php";
 include_once "userTypeController.php";
 include_once "users.php";
 include_once "userController.php";
-
+include_once "addressController.php"; 
 $userId = $_SESSION["id"];
 
-/*$userobj  = new user($userId);
-(int)$usertypeidnum=$userobj->getuserTypeid();*/
+$userobj  = new user($userId);
+$cityidvar=$userobj->getcityid();
+//echo $cityidvar;
+//(int)$usertypeidnum=$userobj->getuserTypeid();
 
 $objusercont=new UserController();
 $objusercont->ShowUserInfo($userId);
-$usertypeidnum=$objusercont->GetUserTypeidNum($userId);
+
+$usertypecontrollerobj=new userTypeController();
+$usertypecontrollerobj->showuserType(1);
+
+$objcontrolleraddressobj  = new addressController();
+$objcontrolleraddressobj->ShowFullAddress(17);
+
+/*$usertypeidnum=$objusercont->GetUserTypeidNum($userId);
 
 $usertypecontrollerobj=new userTypeController();
 $usertypecontrollerobj->showuserType($usertypeidnum);
 
-//echo "testingggg" . $usertypeidnum;
+//echo "testingggg" . $usertypeidnum;*/
 /************************ Name **************************** */
-echo "Your name:";
+/*echo "Your name:";
 $sql= "SELECT * FROM user WHERE id = $userId";
 $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 $fullName =$userInfoobj["fullName"];
 echo $fullName ;
-echo "<hr>";
+echo "<hr>";*/
 
 /************************ User Name **************************** */
-echo "Your user name:";
+/*echo "Your user name:";
 $sql= "SELECT * FROM user WHERE id = $userId";
 $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 $UserName =$userInfoobj["userName"];
 echo $UserName ;
-echo "<hr>";
+echo "<hr>";*/
 
 /************************ Date Of Birth **************************** */
-echo "Date of birth:";
+/*echo "Date of birth:";
 $sql= "SELECT * FROM user WHERE id = $userId";
 $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 $BirthDate =$userInfoobj["dateOfBirth"];
 echo $BirthDate ;
-echo "<hr>";
+echo "<hr>";*/
 
 /************************ User Type **************************** */
-echo "Your type:";
+//echo "Your type:";
 /*$usertypecontrollerobj=new userTypeController();
 $usertypecontrollerobj->showuserType($usertypeidnum);*/
 
@@ -68,7 +77,7 @@ echo $UserType ;
 echo "<hr>";*/
 
 /************************ Address **************************** */
-echo "Your address is:";
+/*echo "Your address is:";
 $sql= "SELECT * FROM user WHERE id = $userId";
 
 $userInfoDS = $conn->query($sql);
@@ -83,7 +92,7 @@ $firstrow = $addressdataset->fetch_assoc();
 echo "$firstrow[name]  ";
 $cityIdVar=$firstrow["parentid"];
 }
-echo "<hr>";
+echo "<hr>";*/
 
 ?>
 
