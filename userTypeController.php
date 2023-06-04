@@ -12,14 +12,16 @@ class userTypeController{
     
     //$userTypeViewobj->ShowUserType(8);
     static function showuserType($usertypeid){
-        $userTypeviewobj= new usertypeview();
+       
+        $usertypeobj = new usertype($usertypeid);
+        $userTypeviewobj = new usertypeview();
         
-       $usertypename= $userTypeviewobj->ShowUserType($usertypeid);
-       echo $usertypename;
+        $userTypeviewobj->ShowUserType($usertypeobj);
+       
     }
 } 
 
 /********Testing*************/
- $usertypecontrollerobj=new userTypeController();
- $usertypecontrollerobj->showuserType(1);
+/*$usertypecontrollerobj=new userTypeController();
+ $usertypecontrollerobj->showuserType(1);*/
 ?>

@@ -8,9 +8,20 @@ include_once "db.php";
 include_once "header.php";
 include_once "userTypeController.php";
 include_once "users.php";
+include_once "userController.php";
+
 $userId = $_SESSION["id"];
-$userobj  = new user($userId);
-(int)$usertypeidnum=$userobj->getuserTypeid();
+
+/*$userobj  = new user($userId);
+(int)$usertypeidnum=$userobj->getuserTypeid();*/
+
+$objusercont=new UserController();
+$objusercont->ShowUserInfo($userId);
+$usertypeidnum=$objusercont->GetUserTypeidNum($userId);
+
+$usertypecontrollerobj=new userTypeController();
+$usertypecontrollerobj->showuserType($usertypeidnum);
+
 //echo "testingggg" . $usertypeidnum;
 /************************ Name **************************** */
 echo "Your name:";
@@ -41,8 +52,8 @@ echo "<hr>";
 
 /************************ User Type **************************** */
 echo "Your type:";
-$usertypecontrollerobj=new userTypeController();
-$usertypecontrollerobj->showuserType($usertypeidnum);
+/*$usertypecontrollerobj=new userTypeController();
+$usertypecontrollerobj->showuserType($usertypeidnum);*/
 
 /*$sql= "SELECT * FROM user WHERE id = $userId";
 $userInfoDS = $conn->query($sql);

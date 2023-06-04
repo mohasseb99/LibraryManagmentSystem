@@ -2,12 +2,17 @@
 include_once "db.php";
 include_once "users.php";
 class userview{
-    function showuserInfo($objUser){
+    function showuserInfoo($objUser){
 
-        $userviewobj = new user($objUser);
+        /*$userviewobj = new user($objUser);
         $objUsername  = $userviewobj->getusername();
         $objfullname  = $userviewobj->getfullName();
-        $dateofbirth  = $userviewobj->getdateofbirth();
+        $dateofbirth  = $userviewobj->getdateofbirth();*/
+
+        $objUsername  = $objUser->getusername();
+        $objfullname  = $objUser->getfullName();
+        $dateofbirth  = $objUser->getdateofbirth();
+        
         ?>
         <table border=2, cellpadding=7m cellspacing =9, width=800 >
             <tr>

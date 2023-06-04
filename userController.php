@@ -7,12 +7,12 @@ include_once "helper.php";
 //include_once "helper.php"; 
 
 class UserController{
-    function  ShowUserInfo(){
-        $Id=$_REQUEST["id"];
+    function  ShowUserInfo($Id){
+        //$Id=$_REQUEST["id"];
         
         $obj=new user($Id);
         $userViewobj= new userview();
-        $userViewobj->showuserInfo($obj);
+        $userViewobj->showuserInfoo($obj);
     }
 
   
@@ -25,19 +25,30 @@ class UserController{
         $Username=$_REQUEST["userName"];
         $CityId=$_REQUEST["cityid"];
         $obj= new user($id);
-        $obj->fullName=$FullName;
+        /*$obj->fullName=$FullName;
         $obj->dateOfBirth=$DOB;
         $obj->userTypeId=$userTypeId;
         $obj->password=$Password;
         $obj->userName=$Username;
-        $obj->cityid=$CityId;
+        $obj->cityid=$CityId;*/
+        $obj->setfullName($FullName);
+        $obj->setdateofbirth($DOB);
+        $obj->setuserTypeid($userTypeId);
+        $obj->setpassword($Password);
+        $obj->setusername($Username);
+        $obj->setcityid($CityId);
         $obj->insertNewRecord();
-    
+    }
+
+    function GetUserTypeidNum($userId){
+
+        $objuser=new user($userId);
+        return $objuser->getuserTypeid();
     }
 
     }
 
-if("ShowInfo"==$_REQUEST["command"]){
+/*if("ShowInfo"==$_REQUEST["command"]){
 
     $obj=new UserController();
     $obj->ShowUserInfo();
@@ -46,5 +57,8 @@ if("ShowInfo"==$_REQUEST["command"]){
 if("add"==$_REQUEST["command"]){
     $objadduser = new UserController();
     $objadduser->AddUser($id);
-}
+}*/
+/*$obj=new UserController();
+$usertypeid =$obj->GetUserTypeidNum(23);
+echo $usertypeid;*/
 ?>

@@ -2,6 +2,7 @@
 include_once "userType.php"; 
 include_once "helper.php"; 
 include_once "db.php"; 
+include_once "address.php";
 class   user{
     private $id;
     private $fullName;
@@ -34,6 +35,7 @@ class   user{
             $this->userName=$userInfoobj["userName"];
             $this->cityid=$userInfoobj["cityid"];
             $this->userTypeId=new usertype($userInfoobj["userTypeId"]);
+            $this->cityid=new address($userInfoobj["cityid"]);
 
         }
     }
@@ -54,7 +56,7 @@ class   user{
     public function setdateofbirth($dateOfBirth){
         $this->dateOfBirth=$dateOfBirth;
     }
-    public function getdateofbirth($dateOfBirth){
+    public function getdateofbirth(){
         return isset($this->dateOfBirth)? $this->dateOfBirth : null;
     }
 
@@ -86,7 +88,7 @@ class   user{
     public function setcityid($cityid){
        $this->cityid=$cityid;
     }
-    public function getcityid($cityid){
+    public function getcityid(){
         return isset($this->cityid)? $this->cityid : null;
     }
 }
