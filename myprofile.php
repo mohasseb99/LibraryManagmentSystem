@@ -12,19 +12,27 @@ include_once "userController.php";
 include_once "addressController.php"; 
 $userId = $_SESSION["id"];
 
-$userobj  = new user($userId);
-$cityidvar=$userobj->getcityid();
-//echo $cityidvar;
-//(int)$usertypeidnum=$userobj->getuserTypeid();
+$userobj1  = new user($userId);
+$cityidvar=$userobj1->getcityid();
+$usertypeidnum=$userobj1->getuserTypeid();
 
 $objusercont=new UserController();
 $objusercont->ShowUserInfo($userId);
 
 $usertypecontrollerobj=new userTypeController();
-$usertypecontrollerobj->showuserType(1);
+$usertypecontrollerobj->showuserType($usertypeidnum);
 
 $objcontrolleraddressobj  = new addressController();
-$objcontrolleraddressobj->ShowFullAddress(17);
+$objcontrolleraddressobj->ShowFullAddress($cityidvar);
+
+
+?>
+<html>
+    <br>
+    <a href ="addUser.php">Update my info</a>
+</html>
+<?php
+
 
 /*$usertypeidnum=$objusercont->GetUserTypeidNum($userId);
 
@@ -95,6 +103,7 @@ $cityIdVar=$firstrow["parentid"];
 echo "<hr>";*/
 
 ?>
+
 
 
 

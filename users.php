@@ -19,6 +19,12 @@ class   user{
     
     }
 
+    function UpdateRecord($id){
+   	$sql = "UPDATE user SET 'this->cityid', 'this->userName', 'this->password', 'this->fullName' , 'this->dateOfBirth', 'this->userTypeId' WHERE id = $id";
+    $conn=DB::getConnection();
+     $conn->query($sql); 
+    } 
+
     function __construct($Id){
 
         if($Id != ""){
@@ -34,8 +40,8 @@ class   user{
             $this->password=$userInfoobj["password"];
             $this->userName=$userInfoobj["userName"];
             $this->cityid=$userInfoobj["cityid"];
-            $this->userTypeId=new usertype($userInfoobj["userTypeId"]);
-            $this->cityid=new address($userInfoobj["cityid"]);
+            //$this->userTypeId=new usertype($userInfoobj["userTypeId"]);
+            //$this->cityid=new address($userInfoobj["cityid"]);
 
         }
     }

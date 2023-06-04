@@ -5,8 +5,10 @@ include_once "db.php";
 include_once "helper.php"; 
 //include_once "userType.php";
 //include_once "helper.php"; 
-
+  
 class UserController{
+    private static  $NewIdVariable =50 ;
+
     function  ShowUserInfo($Id){
         //$Id=$_REQUEST["id"];
         
@@ -15,16 +17,17 @@ class UserController{
         $userViewobj->showuserInfoo($obj);
     }
 
+    
   
-    function AddUser($id){
-
+    function AddUser(){
+        
         $FullName=$_REQUEST["fullName"];
         $DOB=$_REQUEST["dateOfBirth"];
         $userTypeId=$_REQUEST["userTypeId"];
         $Password=$_REQUEST["password"];
         $Username=$_REQUEST["userName"];
         $CityId=$_REQUEST["cityid"];
-        $obj= new user($id);
+        $obj= new user($NewIdVariable);
         /*$obj->fullName=$FullName;
         $obj->dateOfBirth=$DOB;
         $obj->userTypeId=$userTypeId;
@@ -38,6 +41,29 @@ class UserController{
         $obj->setusername($Username);
         $obj->setcityid($CityId);
         $obj->insertNewRecord();
+        $this->NewIdVariable= $NewIdVariable+1;
+    }
+
+    function UpdateUser($userId){
+        $FullName=$_REQUEST["fullName"];
+        $DOB=$_REQUEST["dateOfBirth"];
+        $userTypeId=$_REQUEST["userTypeId"];
+        $Password=$_REQUEST["password"];
+        $Username=$_REQUEST["userName"];
+        $CityId=$_REQUEST["cityid"];
+
+        $objuser=new user($userId);
+
+        $objuser->setfullName($FullName);
+        $objuser->setdateofbirth($DOB);
+        $objuser->setuserTypeid($userTypeId);
+        $objuser->setpassword($Password);
+        $objuser->setusername($Username);
+        $objuser->setcityid($CityId);
+
+        $objuser->UpdateRecord($userId);
+      
+
     }
 
     function GetUserTypeidNum($userId){

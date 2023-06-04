@@ -10,35 +10,42 @@
    //in order to retrieve information on the database 
    // the connection allows us to execute, insert or update   
    include_once ("db.php");
-
+   include_once "userController.php";
 
 /*if we send the data with the Get method we can use $_GET[] 
 if we send the data with the host method we can use $_HOST[] 
 if we do not know the data is sent by get or host we use $_REQUEST[]   */
 // these four lines is for recieving the data that the user enters in the form 
-//NOTE: here these lines allows us to convert from the data representation to the object representation  
-$fullName = $_REQUEST["fullName"];
+//NOTE: here these lines allows us to convert from the data representation to the object representation 
+/*$fullName = $_REQUEST["fullName"];
 $dateOfBirth = $_REQUEST["dateOfBirth"];
 $userTypeId = $_REQUEST["userTypeId"];
 $password = $_REQUEST["password"];
 $userName = $_REQUEST["userName"];
-$cityNum=$_REQUEST["cityid"];
+$cityNum=$_REQUEST["cityid"];*/
 
 if($_REQUEST["userId"] != ""){
+   $userId = $_REQUEST["userId"];
+   $usercontrollerobj=new UserController();
+   $usercontrollerobj->UpdateUser($userId);
+  // $usercontrollerobj->UpdateUser($userId);
    
-   /**if the id is received then we will make an update*/
-	$userId = $_REQUEST["userId"];
+	//$userId = $_REQUEST["userId"];
 
-   //make the query
-	$sql = "UPDATE user SET cityid ='$cityNum', userName = '$userName', password = '$password', fullName = '$fullName', dateOfBirth = '$dateOfBirth', userTypeId = '$userTypeId' WHERE id = $userId";
+ 
+	//$sql = "UPDATE user SET cityid ='$cityNum', userName = '$userName', password = '$password', fullName = '$fullName', dateOfBirth = '$dateOfBirth', userTypeId = '$userTypeId' WHERE id = $userId";
    
-   //execute the query
-   $conn->query($sql); 
+   
+   //$conn->query($sql); 
 }
 else{
-	$sql = "insert into user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) values ('$cityNum' ,'$fullName', '$dateOfBirth', '$userTypeId', '$password', '$userName')";
-	$conn->query($sql);
+    //$userId = $_REQUEST["userId"];
+    $usercontrollerobj=new UserController();
+    $usercontrollerobj->AddUser();
+
+	/*$sql = "insert into user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) values ('$cityNum' ,'$fullName', '$dateOfBirth', '$userTypeId', '$password', '$userName')";
+	$conn->query($sql);*/
 }
 
-//header('location:listUserType.php');
+
 ?>
