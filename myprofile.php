@@ -6,8 +6,12 @@
 // the connection allows us to execute, insert or update   
 include_once "db.php";
 include_once "header.php";
-
+include_once "userTypeController.php";
+include_once "users.php";
 $userId = $_SESSION["id"];
+$userobj  = new user($userId);
+(int)$usertypeidnum=$userobj->getuserTypeid();
+//echo "testingggg" . $usertypeidnum;
 /************************ Name **************************** */
 echo "Your name:";
 $sql= "SELECT * FROM user WHERE id = $userId";
@@ -37,7 +41,10 @@ echo "<hr>";
 
 /************************ User Type **************************** */
 echo "Your type:";
-$sql= "SELECT * FROM user WHERE id = $userId";
+$usertypecontrollerobj=new userTypeController();
+$usertypecontrollerobj->showuserType($usertypeidnum);
+
+/*$sql= "SELECT * FROM user WHERE id = $userId";
 $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 $UserTypeNum =$userInfoobj["userTypeId"];
@@ -47,7 +54,7 @@ $userInfoDS = $conn->query($sql);
 $userInfoobj = $userInfoDS->fetch_assoc();
 $UserType =$userInfoobj["name"];
 echo $UserType ;
-echo "<hr>";
+echo "<hr>";*/
 
 /************************ Address **************************** */
 echo "Your address is:";
