@@ -18,6 +18,7 @@ class address{
             $addressInfoobj= $addressInfoDS->fetch_assoc();
             $this->Id=$addressInfoobj["Id"];
             $this->parentid=$addressInfoobj["parentid"];
+            $this->name=$addressInfoobj["name"];
 
         }
     }
@@ -38,9 +39,11 @@ class address{
         $this->parentid=$parentid;
     }
 
-    public function getparentid($parentid){
+    public function getparentid(){
         return isset($this->parentid)? $this->parentid : null;
     }
+ 
 
 }
+
 ?>
