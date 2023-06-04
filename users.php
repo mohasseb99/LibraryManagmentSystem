@@ -13,7 +13,7 @@ class   user{
     private $cityid;
 
     function insertNewRecord(){
-        $sql = "INSERT INTO user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) VALUES (this->cityNum ,this->fullName, this->dateOfBirth, this->userTypeId, this->password, this->userName)";
+        $sql = "INSERT INTO user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) VALUES ('this->cityid' ,'this->fullName', 'this->dateOfBirth', 'this->userTypeId', 'this->password', 'this->userName')";
         $conn=DB::getConnection();
         $conn->query($sql);
     
