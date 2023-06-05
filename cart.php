@@ -2,6 +2,10 @@
 <?php
 // Start session
 include_once "header.php";
+include_once __DIR__ . "/models/books.php";
+include_once __DIR__ . "/models/bookfile.php";
+include_once "Encrypt.php";
+
 
 ?>
 <table border = 1 width = 100%>
@@ -16,31 +20,29 @@ if (isset($_SESSION['cart'])) {
     
     // Display cart contents
     if (!empty($cart)) {
-        // Fetch book details from the database based on IDs in the cart array
-        $sql = "SELECT * FROM books WHERE id IN (".implode(',', $cart).")";
-        $result = $conn->query($sql);
+        $books = array();
+        foreach ($cart as $bookId){
+			array_push($books, new books($bookId));
+		}
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $sql = "SELECT * FROM books, bookcategory 
-			            WHERE books.id =" . $row["id"] . " and books.categoryId = bookcategory.id";
-	            $bookDataset = $conn->query($sql);
-	            $bookObj=$bookDataset->fetch_assoc();
+        $length = count($books); 
+        if ($length > 0) {
+            for($i = 0; $i < $length; $i++) {
                 ?>
-	            <tr><td><?php echo $bookObj["bookName"]; ?></td> <td><?php echo $bookObj["name"]; ?> </td>
+	            <tr><td><?php echo $books[$i]->getBookName(); ?></td> <td><?php echo $books[$i]->getCategoryIdObj()->getName(); ?> </td>
                 <?php
-	            $sql = "select * from bookfile where bookId=". $row["id"];
-	            $fileDataSet = $conn->query($sql);
+                $bookFile = bookfile::getObjectByBookId($books[$i]->getID());
                 ?><td> <?php
-	            while($rowFile = $fileDataSet->fetch_assoc()){
-                    
-		            echo "<img src=" . $rowFile["filePath"] . ">"; 
-	            }
+	            echo "<img src=" . $bookFile->getFilePath() . ">"; 
                 ?> </td> </tr> <?php
             }
-            echo "<a href=addToBorrow.php> Borrow these books </a>";
-	        echo "<hr>";
-            echo "<a href='clearCart.php'>Clear Cart</a>";
+            ?>
+            </table>
+            <?php
+            $enc = Encrypt::Encrypt("add", 3);
+            echo "<a style='float:right' href=controllers/borrowcontroller.php?command=" . $enc . "> Borrow these books </a>";	        
+            echo "<br>";
+            echo "<a style='float:right' href='clearCart.php'>Clear Cart</a>";
         } else {
             echo "No books found in the cart.";
         }
@@ -51,12 +53,7 @@ if (isset($_SESSION['cart'])) {
 } else {
     echo "Your cart is empty.";
 }
-?>
-
-</table>
-
-<?php
-// Start session
 include_once "footer.php";
 
 ?>
+

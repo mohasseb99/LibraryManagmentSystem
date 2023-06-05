@@ -1,4 +1,10 @@
 @charset "utf-8";
+
+div.cart {
+	position: absolute;
+	right: 0px;
+}
+
 ul li ul.dropdown {
 	display: none;
 	position: relative;

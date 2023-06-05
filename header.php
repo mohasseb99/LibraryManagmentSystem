@@ -14,38 +14,41 @@
   <div class="header">
     <div class="header_resize">
       <div class="logo">
-        <h1><a href="index.html">Library<span>Pro</span></a> <small>put your slogan here</small></h1>
+        <h1><a href="index.php">Library<span>Pro</span></a> <small>put your slogan here</small></h1>
       </div>
       <div class="clr"></div>
       <div class="menu_nav">
       
             <?php 
-                include_once "db.php";
+                include_once "helper.php";
                 session_start();
+                include_once "models/usertypepages.php";
+                include_once "Encrypt.php";
                 function getSubmenusByUserType($parentId, $userTypeId, $conn) {
-                    $sql = "SELECT pages.* FROM pages
-                        INNER JOIN usertypepages ON pages.Id = usertypepages.pageid
-                        WHERE pages.parentId = $parentId AND usertypepages.usertypeid = $userTypeId order by orderby";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
+                    $pages = usertypepages::getPagesUserTypeParentId($parentId, $userTypeId);
+                    $length = count($pages);
+                    if ($length > 0) {
                         if($parentId != 14){
                             echo '<ul class="dropdown">';
                         }
                         else{echo '<ul>';}
-                        while ($row = $result->fetch_assoc()) {
-                            if($row["PhysicalAddress"] == "showstaticcontent.php"){
+                        for($i = 0; $i < $length; $i++) {
+                            if($pages[$i]->getPhysicalAddress() == "showstaticcontent.php"){
                                 ?>
-                                <li><a href="<?php echo $row['PhysicalAddress']."?pageid=".$row["Id"];?>"><?php echo $row["FriendlyName"];?></a>
                                 <?php
-                                getSubmenusByUserType($row['Id'], $userTypeId, $conn);
+                                $pageIdenc = Encrypt::Encrypt($pages[$i]->getId(), 3);
+
+                                ?>
+                                <li><a href="<?php echo $pages[$i]->getPhysicalAddress() ."?pageid=". $pageIdenc;?>"><?php echo $pages[$i]->getFriendlyName(); ?></a>
+                                <?php
+                                getSubmenusByUserType($pages[$i]->getId(), $userTypeId, $conn);
                                 echo '</li>';
                             }
                             else{
                                 ?>
-                                <li><a href="<?php echo $row['PhysicalAddress'];?>"><?php echo $row["FriendlyName"];?></a>
+                                <li><a href="<?php echo $pages[$i]->getPhysicalAddress();?>"><?php echo $pages[$i]->getFriendlyName();?></a>
                                 <?php
-                                getSubmenusByUserType($row['Id'], $userTypeId, $conn);
+                                getSubmenusByUserType($pages[$i]->getId(), $userTypeId, $conn);
                                 echo '</li>';
                             }
                         }
@@ -56,37 +59,9 @@
                 if(isset($_SESSION["userTypeId"])){
                     $userTypeId = $_SESSION["userTypeId"];
                 }
+                $conn = DB::getConnection();
                 getSubmenusByUserType(14, $userTypeId, $conn);
-                /*
-                $sql = "select * from usertypepages where userTypeId = $userTypeId order by orderby";
-                $dataset = $conn->query($sql);
-                while($row = $dataset->fetch_assoc()){
-                    $sql = "select * from pages where Id =". $row['pageid'];
-                    $dataset1 = $conn->query($sql);
-                    $row1 = $dataset1->fetch_assoc();
-                    if($row1["PhysicalAddress"] == "showstaticcontent.php"){
-                        ?>
-                        <li><a href="<?php echo $row1['PhysicalAddress']."?pageid=".$row1["Id"];?>"><?php echo $row1["FriendlyName"];?></a></li>
-                        <?php
-
-
-
-                    }
-                    else{
-                        ?>
-                        <li><a href="<?php echo $row1['PhysicalAddress'];?>"><?php echo $row1["FriendlyName"];?></a></li>
-                        <?php
-                    }
-                }*/
             ?>
-      </div>
-      <div class="searchform">
-        <form id="formsearch" name="formsearch" method="post" action="#">
-          <span>
-          <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
-          </span>
-          <input name="button_search" src="images/search_btn.gif" class="button_search" type="image" />
-        </form>
       </div>
       <div class="clr"></div>
     </div>
