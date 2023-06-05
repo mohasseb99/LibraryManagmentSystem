@@ -40,10 +40,8 @@ class   user{
             $this->password=$userInfoobj["password"];
             $this->userName=$userInfoobj["userName"];
             $this->cityid=$userInfoobj["cityid"];
-            //$this->userTypeId=new usertype($userInfoobj["userTypeId"]);
-            //$this->cityid=new address($userInfoobj["cityid"]);
-
-        }
+        
+        } 
     }
 
     public function getId(){

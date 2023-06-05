@@ -34,7 +34,7 @@ if($_REQUEST["userId"] != ""){
 
  
 	//$sql = "UPDATE user SET cityid ='$cityNum', userName = '$userName', password = '$password', fullName = '$fullName', dateOfBirth = '$dateOfBirth', userTypeId = '$userTypeId' WHERE id = $userId";
-   
+   echo "i am here 3"; 
    
    //$conn->query($sql); 
 }
@@ -42,7 +42,7 @@ else{
     //$userId = $_REQUEST["userId"];
     $usercontrollerobj=new UserController();
     $usercontrollerobj->AddUser();
-
+    echo "i am here 4"; 
 	/*$sql = "insert into user (cityid ,fullName, dateOfBirth, userTypeId, password, userName) values ('$cityNum' ,'$fullName', '$dateOfBirth', '$userTypeId', '$password', '$userName')";
 	$conn->query($sql);*/
 }

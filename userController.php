@@ -7,7 +7,7 @@ include_once "helper.php";
 //include_once "helper.php"; 
   
 class UserController{
-    private static  $NewIdVariable =50 ;
+     private $NewIdVariable;
 
     function  ShowUserInfo($Id){
         //$Id=$_REQUEST["id"];
@@ -21,13 +21,16 @@ class UserController{
   
     function AddUser(){
         
+        $this->NewIdVariable = isset($this->NewIdVariable)?  $this->NewIdVariable : "";
+
         $FullName=$_REQUEST["fullName"];
         $DOB=$_REQUEST["dateOfBirth"];
         $userTypeId=$_REQUEST["userTypeId"];
         $Password=$_REQUEST["password"];
         $Username=$_REQUEST["userName"];
-        $CityId=$_REQUEST["cityid"];
-        $obj= new user($NewIdVariable);
+        //$CityId=$_REQUEST["cityid"];
+        
+        $obj= new user($this->NewIdVariable);
         /*$obj->fullName=$FullName;
         $obj->dateOfBirth=$DOB;
         $obj->userTypeId=$userTypeId;
@@ -39,9 +42,9 @@ class UserController{
         $obj->setuserTypeid($userTypeId);
         $obj->setpassword($Password);
         $obj->setusername($Username);
-        $obj->setcityid($CityId);
+        //$obj->setcityid($CityId);
         $obj->insertNewRecord();
-        $this->NewIdVariable= $NewIdVariable+1;
+        
     }
 
     function UpdateUser($userId){

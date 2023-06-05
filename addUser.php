@@ -22,7 +22,7 @@ include_once "header.php";
 	//$conn->query: here occurs the execution of that query
 	//$conn->query: returns a table
 	//the table that will be returned is called the dataset   
-   $resultDataSet = $conn->query($sqlstmtUserTypes);
+    $resultDataSet = $conn->query($sqlstmtUserTypes);
 
 
    /*if we send the data with the Get method we can use $_GET[] 
@@ -30,11 +30,13 @@ include_once "header.php";
 	 if we do not know the data is sent by get or host we use $_REQUEST[]*/
 	 /**check whether the $_REQUEST["userId"] is filled with id or not because if it is not filled with id there will be error */
 	 /**isset checks if the variable foundor not*/
-	if(isset($_REQUEST["userId"])){
-		 /**here the user will make an update because there is an id  */
+	  /**here the user will make an update because there is an id  */
+	   
+	if(isset($_REQUEST["id"])){
+		
 		 echo "you are making an update";
 
-		$userId = $_REQUEST["userId"];
+		$userId = $_REQUEST["id"];
 		$sql = "SELECT * from user where id = $userId";
 		$userInfoDS = $conn->query($sql);
 		$userInfoobj = $userInfoDS->fetch_assoc();
@@ -43,6 +45,7 @@ include_once "header.php";
 
 		echo "you are making an add";
     }
+	
 
 ?>
 
