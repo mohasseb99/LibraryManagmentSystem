@@ -22,7 +22,7 @@ $dateOfBirth = $_REQUEST["dateOfBirth"];
 $userTypeId = $_REQUEST["userTypeId"];
 $password = $_REQUEST["password"];
 $userName = $_REQUEST["userName"];
-$cityNum=$_REQUEST["cityid"];
+$cityNum=@$_REQUEST["cityid"];
 
 if($_REQUEST["userId"] != ""){
    /*$userId = $_REQUEST["userId"];
