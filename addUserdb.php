@@ -39,7 +39,7 @@ if($_REQUEST["userId"] != ""){
    //$conn->query($sql); 
 }
 else{
-    //$userId = $_REQUEST["userId"];
+    $userId = $_REQUEST["userId"];
     $usercontrollerobj=new UserController();
     $usercontrollerobj->AddUser();
     echo "i am here 4"; 
